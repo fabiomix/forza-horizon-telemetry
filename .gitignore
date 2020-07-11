@@ -1,0 +1,2 @@
+# Exclude InfluxDB data from project
+var/lib/influxdb
