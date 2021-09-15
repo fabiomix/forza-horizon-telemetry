@@ -1,0 +1,53 @@
+---
+version: '3'
+services:
+
+  influxdb:
+    image: influxdb:1.8
+    container_name: influxdb
+    environment:
+      - INFLUXDB_REPORTING_DISABLED=true
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=adminsecretpassword
+      - INFLUXDB_USER=telegraf
+      - INFLUXDB_USER_PASSWORD=telegrafsecretpassword
+    volumes:
+      # Mount for influxdb data directory
+      # - ./influxdb/data:/var/lib/influxdb
+      # Mount for influxdb configuration
+      - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+    ports:
+      # The API for InfluxDB is served on port 8086
+      - "8086:8086"
+      # UDP Port
+      - "8089:8089/udp"
+
+  telegraf:
+    image: telegraf
+    container_name: telegraf
+    environment:
+      - HOST_PROC=/host/proc
+    volumes:
+      # Mount for telegraf configuration
+      - ./telegraf/telegraf.conf:/etc/telegraf/telegraf.conf:ro
+      # Mount for proc access from host
+      - /proc:/host/proc:ro
+      # Mount for Docker API access
+      - /var/run/docker.sock:/var/run/docker.sock
+    links:
+      - influxdb
+    depends_on:
+      - influxdb
+
+  chronograf:
+    image: chronograf
+    container_name: chronograf
+    environment:
+      - REPORTING_DISABLED=true
+    ports:
+      - "8888:8888"
+    links:
+      - influxdb
+    depends_on:
+      - influxdb
+      - telegraf
