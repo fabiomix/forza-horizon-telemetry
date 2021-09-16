@@ -16,6 +16,8 @@ services:
       # - ./influxdb/data:/var/lib/influxdb
       # Mount for influxdb configuration
       - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
+      # Mount for first-init scripts
+      - ./influxdb/entrypoint/:/docker-entrypoint-initdb.d:ro
     ports:
       # The API for InfluxDB is served on port 8086
       - "8086:8086"
