@@ -36,6 +36,8 @@ services:
       - /proc:/host/proc:ro
       # Mount for Docker API access
       - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - "8094:8094/udp"
     links:
       - influxdb
     depends_on:

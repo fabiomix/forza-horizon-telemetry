@@ -1,0 +1,5 @@
+# Visual Studio Code
+.vscode/
+
+# compiled python files
+*.py[co]
