@@ -47,7 +47,11 @@ services:
     image: chronograf
     container_name: chronograf
     environment:
+      - RESOURCES_PATH=/usr/share/chronograf/resources
       - REPORTING_DISABLED=true
+    volumes:
+      # Mount for chronograf resources
+      - ./chronograf/resources/:/usr/share/chronograf/resources
     ports:
       - "8888:8888"
     links:
