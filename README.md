@@ -1,5 +1,5 @@
-# Forza Horizon 4 telemetry
-Collect, store and display telemetry data from Forza Horizon 4.
+# Forza Horizon telemetry
+Collect, store and display telemetry data from Forza Horizon.
 
 ![chronograf-dashboard-img](screenshot.png)
 
@@ -19,7 +19,7 @@ of the [supported telegraf input formats](https://github.com/influxdata/telegraf
 
 
 ## Requirements
-- a copy of Forza Horizon 4 (PC or XOne)
+- a copy of Forza Horizon 4 or 5 (PC or XOne)
 - docker and docker-compose
 - python3
 
@@ -43,6 +43,7 @@ of the [supported telegraf input formats](https://github.com/influxdata/telegraf
 - make a telegraf processor plugin to manipulate data (ex. convert car_ordinal in car_model_name)
 - try Grafana widgets and eventually replace Chronograf
 - ~~add support for Forza Motorsport 7~~ (FM7 no longer included in Game Pass)
+- ~~add support for Forza Horizon 5~~ (already works, FH5 uses the same format as FH4)
 
 
 ## References
