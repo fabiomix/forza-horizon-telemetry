@@ -59,3 +59,15 @@ services:
     depends_on:
       - influxdb
       - telegraf
+
+  proxy:
+    build: proxy/
+    image: fabiomix/forza-udp-proxy:1.0
+    container_name: proxy
+    # command: --verbose
+    ports:
+      - "9999:9999/udp"
+    links:
+      - telegraf
+    depends_on:
+      - telegraf
