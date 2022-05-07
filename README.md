@@ -32,6 +32,7 @@ of the [supported telegraf input formats](https://github.com/influxdata/telegraf
     * Username: the `INFLUXDB_ADMIN_USER` in docker-compose.yml
     * Password: the `INFLUXDB_ADMIN_PASSWORD` in docker-compose.yml
     * Telegraf database name: `horizon`
+5. create a new dashboard or import the one included in this repo
 
 
 ## Roadmap / improvements

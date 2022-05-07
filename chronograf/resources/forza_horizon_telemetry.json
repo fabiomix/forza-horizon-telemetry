@@ -1596,7 +1596,7 @@
 			}
 		],
 		"templates": [],
-		"name": "Forza Horizon 4 telemetry",
+		"name": "Forza Horizon telemetry",
 		"organization": "default",
 		"links": {
 			"self": "/chronograf/v1/dashboards/1",

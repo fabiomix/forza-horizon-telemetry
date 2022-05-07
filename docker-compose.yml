@@ -4,7 +4,7 @@ services:
 
   influxdb:
     image: influxdb:1.8
-    container_name: influxdb
+    container_name: fh_influxdb
     environment:
       - INFLUXDB_REPORTING_DISABLED=true
       - INFLUXDB_ADMIN_USER=admin
@@ -13,7 +13,7 @@ services:
       - INFLUXDB_USER_PASSWORD=telegrafsecretpassword
     volumes:
       # Mount for influxdb data directory
-      # - ./influxdb/data:/var/lib/influxdb
+      - timedata:/var/lib/influxdb
       # Mount for influxdb configuration
       - ./influxdb/influxdb.conf:/etc/influxdb/influxdb.conf:ro
       # Mount for first-init scripts
@@ -26,7 +26,7 @@ services:
 
   telegraf:
     image: telegraf
-    container_name: telegraf
+    container_name: fh_telegraf
     environment:
       - HOST_PROC=/host/proc
     volumes:
@@ -45,13 +45,11 @@ services:
 
   chronograf:
     image: chronograf
-    container_name: chronograf
+    container_name: fh_chronograf
     environment:
-      - RESOURCES_PATH=/usr/share/chronograf/resources
       - REPORTING_DISABLED=true
     volumes:
-      # Mount for chronograf resources
-      - ./chronograf/resources/:/usr/share/chronograf/resources
+      - chronodata:/var/lib/chronograf
     ports:
       - "8888:8888"
     links:
@@ -63,11 +61,15 @@ services:
   proxy:
     build: proxy/
     image: fabiomix/forza-udp-proxy:1.0
-    container_name: proxy
-    # command: --verbose
+    container_name: fh_proxy
+    # command: --verbose --test
     ports:
       - "9999:9999/udp"
     links:
       - telegraf
     depends_on:
       - telegraf
+
+volumes:
+  timedata:
+  chronodata:
