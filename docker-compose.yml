@@ -43,15 +43,22 @@ services:
     depends_on:
       - influxdb
 
-  chronograf:
-    image: chronograf
-    container_name: fh_chronograf
+  grafana:
+    image: grafana/grafana
+    container_name: fh_grafana
     environment:
-      - REPORTING_DISABLED=true
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=passw0rd
+      - GF_USERS_DEFAULT_THEME=dark
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_USERS_ALLOW_ORG_CREATE=false
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_ANALYTICS_REPORTING_ENABLED=false
+      - GF_DASHBOARDS_MIN_REFRESH_INTERVAL=500ms
     volumes:
-      - chronodata:/var/lib/chronograf
+      - grdata:/var/lib/grafana
     ports:
-      - "8888:8888"
+      - "3000:3000"
     links:
       - influxdb
     depends_on:
@@ -72,4 +79,4 @@ services:
 
 volumes:
   timedata:
-  chronodata:
+  grdata:
