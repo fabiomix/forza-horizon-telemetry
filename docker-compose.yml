@@ -25,7 +25,7 @@ services:
       - "8089:8089/udp"
 
   telegraf:
-    image: telegraf
+    image: telegraf:1.24.3
     container_name: fh_telegraf
     environment:
       - HOST_PROC=/host/proc
@@ -44,7 +44,7 @@ services:
       - influxdb
 
   grafana:
-    image: grafana/grafana
+    image: grafana/grafana:9.2.4
     container_name: fh_grafana
     environment:
       - GF_SECURITY_ADMIN_USER=admin
@@ -67,7 +67,7 @@ services:
 
   proxy:
     build: proxy/
-    image: fabiomix/forza-udp-proxy:1.0
+    image: fabiomix/forza-udp-proxy:latest
     container_name: fh_proxy
     # command: --verbose --test
     ports:
